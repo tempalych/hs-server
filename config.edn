@@ -1,0 +1,11 @@
+{:jetty {:join? false
+         :port #or [#env JETTY_PORT 8080]}
+ :db {:minimum-idle 3
+      :maximum-pool-size 3
+      :adapter "postgresql" 
+      :username #env DB_USERNAME 
+      :database-name #env DB_DATABASE_NAME 
+      :server-name #env DB_SERVER_NAME
+      ;:port-number #env DB_PORT_NUMBER
+      :port-number 5432
+      :password #env DB_PASSWORD}}

@@ -1,0 +1,70 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "2023-01-18-0001",
+      "author": "artem",
+      "changes": [
+        {
+          "createTable": {
+            "tableName": "patients",
+            "columns": [
+              {
+                "column": {
+                  "name": "id",
+                  "type": "int",
+                  "autoIncrement": true,
+                  "constraints": {
+                    "primaryKey": true,
+                    "nullable": false
+                  }
+                }
+              },
+              {
+                "column": {
+                  "name": "fname",
+                  "type": "varchar(50)"
+                }
+              },
+              {
+                "column": {
+                  "name": "lname",
+                  "type": "varchar(50)"
+                }
+              },
+              {
+                "column": {
+                  "name": "pname",
+                  "type": "varchar(50)"
+                }
+              },
+              {
+                "column": {
+                  "name": "gender",
+                  "type": "varchar(2)"
+                }
+              },
+              {
+                "column": {
+                  "name": "birthdate",
+                  "type": "date"
+                }
+              },
+              {
+                "column": {
+                  "name": "address",
+                  "type": "varchar(1000)"
+                }
+              },
+              {
+                "column": {
+                  "name": "insurance",
+                  "type": "varchar(100)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]}
