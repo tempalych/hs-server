@@ -17,7 +17,7 @@ jobs:
       - name: Install Clojure Tools
         uses: DeLaGuardo/setup-clojure@9.5
         with:
-          cli: 1.11.1.1165
+          lein: 2.9.1
 
-      - name: Run Unit Tests
-        run: clojure -e "(+ 1 2)"
+      - name: Run Leiningen Unit Tests
+        run: lein test
