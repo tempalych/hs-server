@@ -17,7 +17,7 @@
                  [org.clojure/tools.logging "1.2.4"]
                  [ch.qos.logback/logback-classic "1.2.3"]]
   :main ^:skip-aot hs.server.core
-  :target-path "target/%s"
+  :target-path "target/uberjar"
   :profiles {:uberjar {:aot :all
                        :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}
               :test {:dependencies [[com.h2database/h2 "2.1.214"]]
