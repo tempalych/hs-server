@@ -91,7 +91,7 @@
          {:status 200
           :headers {"content-type" "application/json"}
           :body (json/encode '({:id 1
-                                :fname "fname1"
+                                :fname "fname"
                                 :lname "lname1"
                                 :pname "pname1"
                                 :address "address1"
