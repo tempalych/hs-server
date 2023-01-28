@@ -4,18 +4,18 @@ Server for HS demo project
 ## Installation
 1. Provide env-file with variables
 ```
-    DB_USERNAME
-    DB_DATABASE_NAME
-    DB_PASSWORD
-    DB_SERVER_NAME
-    LIQUIBASE_URL
+DB_USERNAME
+DB_DATABASE_NAME
+DB_PASSWORD
+DB_SERVER_NAME
+LIQUIBASE_URL
 ```
 
 2. Update database structure with Liquibase:
 ```
-    $ cd liquibase
-    $ source path/to/env-file
-    $ sh liquibase.sh
+$ cd liquibase
+$ source path/to/env-file
+$ sh liquibase.sh
 ```
 
 3. Run application
@@ -28,22 +28,22 @@ $ lein run
 
 Tests:
 ```
-    $ lein test
+$ lein test
 ```
 Compile sources:
 ```
-    $ lein uberjar
+$ lein uberjar
 ```
 ... and run:
 ```
-    $ java -jar hs-0.1.0-standalone.jar
+$ java -jar hs-0.1.0-standalone.jar
 ```
 
 Docker build image:
 ```
-    $ docker build . -t hs-server
+$ docker build . -t hs-server
 ```
 Docker run image:
 ```
-    $ docker run --env-file /path/to/env -p 8080:8080 hs-server -i
+$ docker run --env-file /path/to/env -p 8080:8080 hs-server -i
 ```
