@@ -2,7 +2,7 @@ name: Test and build image
 on: [push]
 jobs:
   clojure:
-    name: Clojure test and build
+    name: Clojure test and build, Docker build and push
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,12 +20,7 @@ jobs:
         run: lein test
       - name: Run Uberjar build
         run: lein uberjar
-    
-  docker:
-    name: Docker build and push
-    needs: clojure
-    runs-on: ubuntu-latest
-    steps:
+# DOCKER
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
