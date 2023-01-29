@@ -1,5 +1,6 @@
 # hs server
-Server for HS demo project
+Server for HS demo project.
+Client is [here](https://github.com/tempalych/hs-client).
 
 ## Installation
 1. Provide env-file with variables
