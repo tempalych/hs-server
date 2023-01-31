@@ -28,7 +28,8 @@
     (let [{:keys [fname lname]} request
           lname (str (string/lower-case (or lname "")) "%")
           fname (str (string/lower-case (or fname "")) "%")
-          query (str "select * from patients where 1=1"
+          query (str "select id, fname, lname, pname, address, gender,
+                      birthdate, insurance from patients where 1=1"
                      (when lname " and lower (lname) like ?")
                      (when fname " and lower (fname) like ?"))
           statement (vec
