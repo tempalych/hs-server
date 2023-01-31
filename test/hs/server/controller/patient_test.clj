@@ -66,6 +66,12 @@
          {:status 200
           :headers {"content-type" "application/json"}
           :body (json/encode '[1])}))
+  
+  (is (= (sut/patients-list h2)
+         {:status 200
+          :headers {"content-type" "application/json"}
+          :body (json/encode '())}))
+  
   (drop-table-patients h2))
 
 (deftest patient-update
@@ -98,6 +104,72 @@
                                 :gender "F"
                                 :birthdate nil
                                 :insurance "insurance1"}))}))
+  (drop-table-patients h2))
+
+(deftest patient-search
+  (create-table-patients h2)
+  (sut/patient-new h2 {:fname "fname1"
+                       :lname "lname1"
+                       :pname "pname1"
+                       :address "address1"
+                       :gender "M"
+                       :insurance "insurance1"})
+  (sut/patient-new h2 {:fname "fname2"
+                       :lname "lname2"
+                       :pname "pname2"
+                       :address "address2"
+                       :gender "M"
+                       :insurance "insurance2"})
+
+  (is (= (sut/patient-search h2 {:fname "fname"})
+         {:status 200
+          :headers {"content-type" "application/json"}
+          :body (json/encode '({:id 1
+                                :fname "fname1"
+                                :lname "lname1"
+                                :pname "pname1"
+                                :address "address1"
+                                :gender "M"
+                                :birthdate nil
+                                :insurance "insurance1"}
+                               {:id 2
+                                :fname "fname2"
+                                :lname "lname2"
+                                :pname "pname2"
+                                :address "address2"
+                                :gender "M"
+                                :birthdate nil
+                                :insurance "insurance2"}))}))
+  
+  (is (= (sut/patient-search h2 {:lname "lname1"})
+         {:status 200
+          :headers {"content-type" "application/json"}
+          :body (json/encode '({:id 1
+                                :fname "fname1"
+                                :lname "lname1"
+                                :pname "pname1"
+                                :address "address1"
+                                :gender "M"
+                                :birthdate nil
+                                :insurance "insurance1"}))}))
+  
+  (is (= (sut/patient-search h2 {:fname "fname2"})
+         {:status 200
+          :headers {"content-type" "application/json"}
+          :body (json/encode '({:id 2
+                                :fname "fname2"
+                                :lname "lname2"
+                                :pname "pname2"
+                                :address "address2"
+                                :gender "M"
+                                :birthdate nil
+                                :insurance "insurance2"}))}))
+  
+  (is (= (sut/patient-search h2 {:fname "WRONG"})
+         {:status 200
+          :headers {"content-type" "application/json"}
+          :body (json/encode '())}))
+  
   (drop-table-patients h2))
 
 
