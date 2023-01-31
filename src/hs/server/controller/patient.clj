@@ -1,8 +1,6 @@
 (ns hs.server.controller.patient
-  (:require [hs.server.db :refer [db]]
-            [clojure.java.jdbc :as jdbc]
+  (:require [clojure.java.jdbc :as jdbc]
             [cheshire.core :as json]
-            [clojure.instant :as instant]
             [clojure.tools.logging :as log]
             [clojure.string :as string])
   (:import [java.time LocalDate]))
