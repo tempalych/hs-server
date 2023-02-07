@@ -12,7 +12,8 @@
                                                   patient-new
                                                   patient-delete
                                                   patient-update
-                                                  patient-search]]
+                                                  patient-search
+                                                  patient-search-full]]
             [hs.server.controller.page-404 :refer [page-404]]
             [clojure.tools.logging :as log]
             [clojure.walk :refer [keywordize-keys]]))
@@ -28,6 +29,7 @@
 (defroutes app
   (GET "/patients" _ (patients-list db))
   (POST "/patients/find" request (patient-search db (get-request-body request)))
+  (POST "/patients/find-full" request (patient-search-full db (get-request-body request)))
   (PUT "/patients" request (patient-update db (get-request-body request)))
   (POST "/patients" request (patient-new db (get-request-body request)))
   (DELETE "/patients" request (patient-delete db (get-request-body request)))
