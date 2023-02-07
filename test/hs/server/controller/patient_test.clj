@@ -172,6 +172,61 @@
   
   (drop-table-patients h2))
 
+(deftest patient-search-full
+  (create-table-patients h2)
+  (sut/patient-new h2 {:fname "a"
+                       :lname "b"
+                       :pname "c"
+                       :address "d"
+                       :gender "M"
+                       :insurance "e"})
+  (sut/patient-new h2 {:fname "a1"
+                       :lname "b2"
+                       :pname "c3"
+                       :address "d4"
+                       :gender "M"
+                       :insurance "e5"})
+  
+  (sut/patients-list h2)
+  (is (= (sut/patient-search-full h2 {:search-string "a b c d e"})
+         {:status 200
+          :headers {"content-type" "application/json"}
+          :body (json/encode '({:id 1
+                                :fname "a"
+                                :lname "b"
+                                :pname "c"
+                                :address "d"
+                                :gender "M"
+                                :birthdate nil
+                                :insurance "e"}
+                               {:id 2
+                                :fname "a1"
+                                :lname "b2"
+                                :pname "c3"
+                                :address "d4"
+                                :gender "M"
+                                :birthdate nil
+                                :insurance "e5"}))}))
+
+  (is (= (sut/patient-search-full h2 {:search-string "1 2 3 4 5"})
+         {:status 200
+          :headers {"content-type" "application/json"}
+          :body (json/encode '({:id 2
+                                :fname "a1"
+                                :lname "b2"
+                                :pname "c3"
+                                :address "d4"
+                                :gender "M"
+                                :birthdate nil
+                                :insurance "e5"}))}))
+
+  (is (= (sut/patient-search-full h2 {:search-string "WRONG"})
+         {:status 200
+          :headers {"content-type" "application/json"}
+          :body (json/encode '())}))
+
+  (drop-table-patients h2))
+
 
 (comment
   (jdbc/query h2 "select * from patients"))

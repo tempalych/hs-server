@@ -44,6 +44,27 @@
     (catch Exception e
       (exception-json e))))
 
+(defn patient-search-full [db request]
+  (try
+    (log/info "Patients full search requested" request)
+    (let [search-string (:search-string request)
+          splitted (map #(str "%" % "%")
+                        (string/split search-string #" "))
+          where (reduce str
+                        (repeat
+                         (count splitted)
+                         "  and lname || fname || pname || insurance || address ilike ?"))
+          query (str "select id, fname, lname, pname, address, gender,
+                      birthdate, insurance from patients where 1=1"
+                     where)
+          statement (cons query splitted)
+          patients (jdbc/query db statement)]
+      {:status 200
+       :headers {"content-type" "application/json"}
+       :body (json/encode patients)})
+    (catch Exception e
+      (exception-json e))))
+
 (defn patient-new [db request]
   (try
     (log/info "New patient requested: " request)
